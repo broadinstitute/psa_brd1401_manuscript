@@ -158,7 +158,7 @@ p0 = ggplot(brd1401_collapse, aes(x = std_lf, y = NPI_robust_median*100))+
   labs(x = "SLF", y = "% Growth Inhibition") +
   theme_bw(base_size = 16)+
   theme(panel.border = element_blank(), axis.line = element_line(colour = "black"))
-
+print(p0)
 
 
 
