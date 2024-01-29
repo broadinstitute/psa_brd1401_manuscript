@@ -97,49 +97,52 @@ NPI_vs_binned_SLF = function(screen_df, collapse_reps = "max", SLF_colname = "st
     # labs(x = "SLF Bin", y = NPI_colname)+
     scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100), limits = c(-20, 120))+
     labs(x = "SLF Bin", y = "% Growth Inhibition")+
-    theme_bw(base_size = 16)
+    theme_bw(base_size = 16)+
+    theme(panel.border = element_blank(), axis.line = element_line(colour = "black"), panel.grid.major = element_blank(), panel.grid.minor = element_blank())
   print(p2)
   
   
-
-  #histograms, subsample >= -3 bin
-  temp = filter(screen_df2_filt, threshold == ">= -3")
-  temp_sub = sample_n(temp, 100)
-  # temp_sub$threshold = ">= -3"
-  screen_df2_filt_subsample = rbind(temp_sub, filter(screen_df2_filt, !(threshold %in% c(">= -3"))))
-  
-  p4 = ggplot(screen_df2_filt_subsample, aes(x = NPI_forplot*100))+
-    geom_histogram(binwidth = binwidth1)+
-    geom_vline(xintercept = 0, color = "gray", linetype = "dashed")+
-    geom_vline(xintercept = 100, color = "gray", linetype = "dashed")+
-    labs(x = "% Growth Inhibition", y = "# Compound-Strain")+
-    scale_y_continuous(breaks = c(0, 5, 10))+
-    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100), limits = c(-20, 120))+
-    # xlim(-1.15, 1.15)+
-    coord_flip()+
-    facet_wrap(~threshold, nrow = 1)+
-    theme_bw(base_size = 16)
-  print(p4)
+# 
+#   #histograms, subsample >= -3 bin
+#   temp = filter(screen_df2_filt, threshold == ">= -3")
+#   temp_sub = sample_n(temp, 100)
+#   # temp_sub$threshold = ">= -3"
+#   screen_df2_filt_subsample = rbind(temp_sub, filter(screen_df2_filt, !(threshold %in% c(">= -3"))))
+#   
+#   p4 = ggplot(screen_df2_filt_subsample, aes(x = NPI_forplot*100))+
+#     geom_histogram(binwidth = binwidth1)+
+#     geom_vline(xintercept = 0, color = "gray", linetype = "dashed")+
+#     geom_vline(xintercept = 100, color = "gray", linetype = "dashed")+
+#     labs(x = "% Growth Inhibition", y = "# Compound-Strain")+
+#     scale_y_continuous(breaks = c(0, 5, 10))+
+#     scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100), limits = c(-20, 120))+
+#     # xlim(-1.15, 1.15)+
+#     coord_flip()+
+#     facet_wrap(~threshold, nrow = 1)+
+#     theme_bw(base_size = 16)
+#   print(p4)
   
   plotlist = list()
   plotlist[[1]] = p2
-  plotlist[[2]] = p4
+  # plotlist[[2]] = p4
   return(plotlist)
   
 }
 
 ######Load Data############
-screen_hits_demultiplex_all = readRDS('/idi/cgtb/jbagnall/Brad_pseudomonas/manuscript_figures/screen1_slf_npi_231121.rds')
+screen_hits_demultiplex_all = readRDS('/idi/cgtb/jbagnall/Brad_pseudomonas/manuscript_figures/screen1_slf_npi_240123.rds')
 
 #Subset to test compounds only
-screen_hits_demultiplex = dplyr::filter(screen_hits_demultiplex, pert_type == "test")
+screen_hits_demultiplex = dplyr::filter(screen_hits_demultiplex_all, pert_type == "test")
 
 ######Plot NPI vs SLF########
 plots = NPI_vs_binned_SLF(screen_hits_demultiplex, collapse_reps = "max", NPI_colname = "NPI_robust_median", exclude_controls = T, PSA_only = T, binwidth = 2, NPI_min = -0.2, SLF_bin_min = -7)
 # plots2 = NPI_vs_binned_SLF(screen_hits_demultiplex2, collapse_reps = "max", NPI_colname = "NPI_robust_median", binwidth = 2, NPI_min = -0.2, SLF_bin_min = -7)
-# print(plots[[1]])
-# print(plots[[2]])
+print(plots[[1]])
 
+pdf('/idi/cgtb/jbagnall/Brad_pseudomonas/manuscript_figures/fig3_boxplot_240129.pdf', width = 7, height = 5)
+print(plots[[1]])
+dev.off()
 
 #########BRD1401 SLF vs demux########
 brd1401= filter(screen_hits_demultiplex, grepl("K47991401", compound))
@@ -158,8 +161,10 @@ p0 = ggplot(brd1401_collapse, aes(x = std_lf, y = NPI_robust_median*100))+
   scale_y_continuous(breaks = c(0, 25, 50, 75, 100), limits=c(-5, 100))+
   labs(x = "SLF", y = "% Growth Inhibition") +
   theme_bw(base_size = 16)+
-  theme(panel.border = element_blank(), axis.line = element_line(colour = "black"))
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.border = element_blank(), axis.line = element_line(colour = "black"))
 print(p0)
 
-
+pdf('/idi/cgtb/jbagnall/Brad_pseudomonas/manuscript_figures/fig3_BRD1401_NPIvsSLF2_240129.pdf', width = 6, height = 5)
+print(p0)
+dev.off()
 
