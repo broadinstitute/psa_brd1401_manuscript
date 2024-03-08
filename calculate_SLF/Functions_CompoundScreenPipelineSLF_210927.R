@@ -6,7 +6,7 @@ library(tidyr)
 library(stringr)
 
 cleanfromConcensus2 <- function(rawcountpath, count_exact = T){
-  #Takes output from Concensus2 pipeline with the following header:
+  #Takes output from count pipeline with the following header:
   #pool,i5_id,i5_plate,plate_barcode,i7_id,plate_quadrant,well_pos,Broad_Sample,mg_per_ml,mmoles_per_liter,strain_id,strain_gene,count_exact,count_nonexact,count_all
   #if count_exact == T, then uses count_exact. Otherwise, uses count_all (includes barcode mismatches)
   #Adjusts column names
