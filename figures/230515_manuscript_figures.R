@@ -223,7 +223,7 @@ SLF_histogram = function(screen_df, SLF_colname = "std_lf", exclude_controls = T
 }
 
 ######Load Data############
-screen_hits_demultiplex_all = readRDS('/idi/cgtb/jbagnall/Brad_pseudomonas/manuscript_figures/screen1_slf_npi_240123.rds')
+screen_hits_demultiplex_all = readRDS('screen1_slf_npi_240123.rds')
 
 #Subset to test compounds only
 screen_hits_demultiplex = dplyr::filter(screen_hits_demultiplex_all, pert_type == "test")
@@ -236,14 +236,14 @@ length(unique(screen_hits_demultiplex$compound_stem))
 #######SLF histogram###########
 plot1 = SLF_histogram(screen_hits_demultiplex, exclude_controls = T, PSA_only = T, SLF_bin_min = -7)
 
-pdf('/idi/cgtb/jbagnall/Brad_pseudomonas/manuscript_figures/figS3_slf_histogram_240129.pdf', width = 7, height = 5)
+pdf('figS3_slf_histogram_240129.pdf', width = 7, height = 5)
 print(plot1)
 dev.off()
 
 ######Plot NPI vs SLF########
 plot2 = NPI_vs_binned_SLF(screen_hits_demultiplex, collapse_reps = "max", NPI_colname = "NPI_robust_median", exclude_controls = T, PSA_only = T, binwidth = 2, NPI_min = -0.2, SLF_bin_min = -7)
 
-pdf('/idi/cgtb/jbagnall/Brad_pseudomonas/manuscript_figures/fig3_boxplot_240129.pdf', width = 7, height = 5)
+pdf('fig3_boxplot_240129.pdf', width = 7, height = 5)
 print(plot2)
 dev.off()
 
@@ -267,7 +267,7 @@ p0 = ggplot(brd1401_collapse, aes(x = std_lf, y = NPI_robust_median*100))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.border = element_blank(), axis.line = element_line(colour = "black"))
 print(p0)
 
-pdf('/idi/cgtb/jbagnall/Brad_pseudomonas/manuscript_figures/fig3_BRD1401_NPIvsSLF2_240129.pdf', width = 6, height = 5)
+pdf('fig3_BRD1401_NPIvsSLF2_240129.pdf', width = 6, height = 5)
 print(p0)
 dev.off()
 
