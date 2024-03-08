@@ -14,10 +14,10 @@ use R-3.5
 #        Please type your inputs below: (careful not to put extra spaces)                   #
 ##############################################################################################
 #Path to input summary count table
-countdatapath1='/idi/cgtb/jbagnall/Brad_pseudomonas/screen1/screen1_rawcounts_for_SLF_pipeline_230117.csv'
+countdatapath1='screen1_rawcounts_for_SLF_pipeline_230117.csv'
 
 #Path to output where you want to save your final SLF and ZZ-score file. No extension necessary. Pipeline will save an .rds and .csv file.
-savefilepath="/idi/cgtb/jbagnall/Brad_pseudomonas/screen1/screen1_processed_test_230117"
+savefilepath="screen1_processed_test_230117"
 
 
 ###########################################################################################
