@@ -24,7 +24,7 @@ savefilepath="/idi/cgtb/jbagnall/Brad_pseudomonas/screen1/screen1_processed_test
 #               Other parameters (shouldn't need to be changed for each run):             #
 ###########################################################################################
 #Do you want to use exact matches for counts (count_exact)? If so, type "T" otherwise type "F". 
-#"F" means that it will use count_all, which includes mismatches (depends how you defined # allowed mismatches when running Concensus2)
+#"F" means that it will use count_all, which includes mismatches (depends on count script)
 count_exact1="T"
 
 #What is the name of the negative control compound? Usually is "DMSO"
